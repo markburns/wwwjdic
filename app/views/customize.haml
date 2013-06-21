@@ -1,0 +1,403 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=euc-jp", "http-equiv" => "Content-Type"}/
+    %title WWWJDIC: Customization Form
+    :css
+          :css
+          %link{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdic.ico", :rel => "icon", :type => "image/x-icon"}/
+  %body{:bgcolor => "ivory", :text => "black"}
+    %table.hdr{:width => "100%"}
+      %tr
+        %td.hdr{:rowspan => "2"}
+          %img{:align => "left", :alt => "JIM", :src => "http://www.csse.monash.edu.au/~jwb/jim_th.jpg"}/
+          %span{:style => "font-size: 9pt; font-family: Helvetica, sans-serif; color:  #FFFFFF"} Jim Breen's
+          %br/
+          %b
+            %span{:style => "font-size: 14pt; font-family: Helvetica, sans-serif; color: #FFFFFF"} WWWJDIC
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?1C"} Word Search/Home
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?9T"} Text Glossing
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?1B"} Kanji Lookup
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?1R"} Multi-Radical Kanji
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html"} User Guide
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#dicfil_tag"} Dictionaries
+      %tr
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?10"} Example Search
+        %td.hdr
+          %a{:href => "http://www.edrdg.org/jmdictdb/cgi-bin/edform.py?svc=jmdict&c=1"} Enter New Entry
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?14"} New Examples
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?19B"} Customize
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#code_tag"} Dictionary Codes
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#don_tag"} Donations
+    %form#inp{:action => "/wwwjdic.cgi?19", :method => "POST", :name => "inp"}
+      %font{:size => "-3"} &nbsp;
+      %br/
+    %form{:action => "/wwwjdic.cgi?19A", :method => "POST"}
+      %h3 Customization Page
+      You are able to customize various aspects of
+      = succeed "'s" do
+        %b WWWJDIC
+      display
+      and operation.
+      Select from the options below, and press the "Customize" button at the bottom of the
+      page.
+      (Note: the older "customized URL" method is being withdrawn.)
+      %p
+      %ul
+        %li
+          Maximum dictionary entries per search results page:
+          %input{:name => "maxlines", :size => "3", :type => "text", :value => "10"}/
+          (Upper limit is 100)
+          %br/
+        %li
+          Maximum detail lines per kanji database display:
+          %input{:name => "maxklines", :size => "3", :type => "text", :value => "5"}/
+          (Upper limit is 50)
+          %br/
+          %font{:size => "-1"}
+            (When you look up the kanji database and there are several kanji
+            which meet the search criteria, this parameter is used to choose whether details
+            are displayed, or whether a simple list of kanji is displayed for you to choose
+            from.)
+          %br/
+        %li
+          Input/Output code:
+          %select{:name => "icode"}
+            %option{:selected => "", :value => "1"}
+              EUC-JP
+            %option{:value => "2"}
+              Shift-JIS
+            %option{:value => "3"}
+              UTF-8
+          %br/
+          %font{:size => "-1"} (If you don't know what these are, don't touch it.)
+          %br/
+        %li
+          Background colour:
+          %select{:name => "bgcolour"}
+            %option{:selected => "", :value => "ivory"}
+              ivory
+            %option{:value => "aqua"}
+              aqua
+            %option{:value => "black"}
+              black
+            %option{:value => "blue"}
+              blue
+            %option{:value => "fuchsia"}
+              fuchsia
+            %option{:value => "gray"}
+              gray
+            %option{:value => "green"}
+              green
+            %option{:value => "lime"}
+              lime
+            %option{:value => "maroon"}
+              maroon
+            %option{:value => "navy"}
+              navy
+            %option{:value => "olive"}
+              olive
+            %option{:value => "purple"}
+              purple
+            %option{:value => "red"}
+              red
+            %option{:value => "silver"}
+              silver
+            %option{:value => "teal"}
+              teal
+            %option{:value => "yellow"}
+              yellow
+            %option{:value => "white"}
+              white
+          or specify your own
+          = succeed "(*)" do
+            %input{:name => "bgcolourx", :size => "20", :type => "text", :value => ""}/
+          %br/
+        %li
+          Text colour:
+          %select{:name => "txtcolour"}
+            %option{:value => "aqua"}
+              aqua
+            %option{:selected => "", :value => "black"}
+              black
+            %option{:value => "blue"}
+              blue
+            %option{:value => "fuchsia"}
+              fuchsia
+            %option{:value => "gray"}
+              gray
+            %option{:value => "green"}
+              green
+            %option{:value => "lime"}
+              lime
+            %option{:value => "maroon"}
+              maroon
+            %option{:value => "navy"}
+              navy
+            %option{:value => "olive"}
+              olive
+            %option{:value => "purple"}
+              purple
+            %option{:value => "red"}
+              red
+            %option{:value => "silver"}
+              silver
+            %option{:value => "teal"}
+              teal
+            %option{:value => "yellow"}
+              yellow
+            %option{:value => "white"}
+              white
+          or specify your own
+          = succeed "(*)" do
+            %input{:name => "txtcolourx", :size => "20", :type => "text", :value => ""}/
+          %br/
+          (*):
+          %ol{:type => "a"}
+            %li
+              if you are keying your own colours, make
+              %b sure
+              your browser
+              supports them.)
+            %li
+              if you have selected a different colour previously, you will need
+              to clear the text field if you wish to change it.
+        %li
+          Interface language:
+          %select{:name => "langcode"}
+            %option{:selected => "", :value => "0"}
+              English
+            %option{:value => "1"}
+              Japanese
+          %font{:color => "red"} (Japanese version is under construction!)
+          %br/
+        %li
+          the information and options in the page header and the main
+          dictionary results pages.
+          %p
+            The following are normally
+            %b enabled
+            by default. You can selectively remove
+            them here.
+          %table{:border => ""}
+            %tr
+              %td
+                %b O P T I O N
+              %td
+                %b Enable
+              %td
+                %b Disable
+            %tr
+              %td
+                Menu Bar at the top of the page
+                %em (removal NOT recommended)
+              %td
+                %input{:checked => "", :name => "opt_menubar", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_menubar", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                The explanation of the options ([G]oogle, etc.)
+              %td
+                %input{:checked => "", :name => "opt_optexpl", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_optexpl", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Links to audio clips of dictionary entries
+                %em
+                  %font{:color => "red"} (NEW)
+              %td
+                %input{:checked => "", :name => "opt_audioon", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_audioon", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Selected example sentences on the dictionary results page
+              %td
+                %input{:checked => "", :name => "opt_inlinex", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_inlinex", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                The kanji and kana parts of the display of entries in a larger font
+              %td
+                %input{:checked => "", :name => "opt_kanbold", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_kanbold", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to the verb table [V]
+              %td
+                %input{:checked => "", :name => "opt_lnkverb", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_lnkverb", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to the display of example sentences [Ex]
+              %td
+                %input{:checked => "", :name => "opt_linkexa", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkexa", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to the jeKai article [jeKai]
+              %td
+                %input{:checked => "", :name => "opt_linkjek", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkjek", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to the Buddhism database [DDB]
+              %td
+                %input{:checked => "", :name => "opt_linkbud", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkbud", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to a Google search for the first kanji/kana [G]
+              %td
+                %input{:checked => "", :name => "opt_linkggl", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkggl", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to a Google Images search for the first kanji/kana [GI]
+              %td
+                %input{:checked => "", :name => "opt_linkggi", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkggi", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to Sanseido (Goo) dictionary for the first kanji/kana [S]
+              %td
+                %input{:checked => "", :name => "opt_linkgoo", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkgoo", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to Eijiro (ALC) dictionary for the first kanji/kana [A]
+              %td
+                %input{:checked => "", :name => "opt_linkalc", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkalc", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to Japanese Wikipedia for the first kanji/kana [W]
+              %td
+                %input{:checked => "", :name => "opt_linkwik", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkwik", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Link to the Japanese WordNet for the first kanji/kana [JW]
+              %td
+                %input{:checked => "", :name => "opt_linkwn", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_linkwn", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Associate an HTML "label" with the radio button and text
+                in the display of entries.
+                %br/
+                %em (This seems to cause a problem with bug in Firefox 3.)
+              %td
+                %input{:checked => "", :name => "opt_radlabel", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_radlabel", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Display the Jinmeiyou and non-Jouyou kanji in different colours.
+              %td
+                %input{:checked => "", :name => "opt_jycolour", :type => "radio", :value => "1"}/
+              %td
+                %input{:name => "opt_jycolour", :type => "radio", :value => "0"}/
+          %p
+            The following are
+            %b disabled
+            by default. You can selectively enable
+            them here.
+          %table{:border => ""}
+            %tr
+              %td
+                %b O P T I O N
+              %td
+                %b Enable
+              %td
+                %b Disable
+            %tr
+              %td
+                Display dictionary entries in two columns
+              %td
+                %input{:name => "opt_twocols", :type => "radio", :value => "1"}/
+              %td
+                %input{:checked => "", :name => "opt_twocols", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Add a space between entries
+              %td
+                %input{:name => "opt_entspac", :type => "radio", :value => "1"}/
+              %td
+                %input{:checked => "", :name => "opt_entspac", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Decrease the font size in the Menu Bar
+              %td
+                %input{:name => "opt_menufnt", :type => "radio", :value => "1"}/
+              %td
+                %input{:checked => "", :name => "opt_menufnt", :type => "radio", :value => "0"}/
+            %tr
+              %td
+                Display only Common word (P) entries
+                %em (use with caution)
+              %td
+                %input{:name => "opt_priority", :type => "radio", :value => "1"}/
+              %td
+                %input{:checked => "", :name => "opt_priority", :type => "radio", :value => "0"}/
+        %li
+          Examples
+          %p
+            Check here
+            %input{:name => "exbline", :type => "checkbox", :value => "X"}/
+            if
+            you would like to see the words used for indexing each Japanese example sentence.
+            %br/
+            %font{:size => "-1"}
+              (This is rather technical stuff, mainly used by people
+              maintaining the Examples file.)
+        %li
+          preset your name and email address if you are sending in new
+          entries, amendments, comments on example sentences, etc.
+          %ul
+            %li
+              name:
+              %input{:name => "exuname", :size => "40", :type => "text", :value => "Name"}/
+            %li
+              email address:
+              %input{:name => "exemail", :size => "60", :type => "text", :value => "Email address"}/
+          Note that for obscure technical reasons, neither the name nor the email
+          address can contain an underscore ("_").
+      %input{:type => "submit", :value => "Customize"}/
+      your WWWJDIC settings.
+    %hr/
+    %center
+      %font{:size => "-1"}
+        WWWJDIC site: Monash University  &nbsp; &nbsp;  © Copyright 2011,
+        = succeed "." do
+          %a{:href => "http://www.edrdg.org/"} Electronic Dictionary Research and Development Group
+        (
+        %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#copyr_tag"}> Details
+        ) (
+        %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#disc_tag"}> Disclaimer
+        )

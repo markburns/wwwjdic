@@ -3,8 +3,6 @@ require 'rake'
 
 load 'lib/tasks/redis.rake'
 
-require './helpers'
-
 module RedisHelpers
   def clear_redis
     begin

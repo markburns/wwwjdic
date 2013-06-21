@@ -1,6 +1,6 @@
 #encoding: utf-8
 require File.expand_path('spec/spec_helper')
-require 'edict_entry'
+require './app/models/edict_entry'
 
 
 describe EdictEntry do

@@ -1,5 +1,5 @@
 #encoding: utf-8
-require './lib/page'
+require './app/data_access/page'
 
 describe Page do
   context "paginating" do

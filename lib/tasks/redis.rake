@@ -6,11 +6,11 @@ require 'rake'
 require 'fileutils'
 require 'open-uri'
 require 'pathname'
-require './lib/redis_helpers'
+require './app/data_access/redis_helpers'
 
-include RedisHelpers
 
 class RedisRunner
+  include RedisHelpers
   def self.redis_dir
     @redis_dir ||= if ENV['PREFIX']
                      Pathname.new(ENV['PREFIX'])

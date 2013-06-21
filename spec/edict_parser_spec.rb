@@ -1,6 +1,6 @@
 #encoding: utf-8
-require './lib/edict_parser'
 require './spec/spec_helper'
+require './db/edict_parser'
 describe EdictParser do
 
   def line_with_kanji_kana_mix_and_kana

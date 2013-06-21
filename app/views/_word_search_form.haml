@@ -1,0 +1,17 @@
+%form{:id => "search_form", :method => "get", 'accept-charset' => CHARACTER_ENCODING}
+  %input{:id => "query", :name => 'query', :size => "50", :type => "text", :value => "", :autocomplete =>"off"}
+    %input{:type => "submit", :id => 'search', :value => "Search"}
+
+  %select{:name => "dicsel"}
+    - dictionaries_hash.each_pair do |id, text|
+      %option{:value => id}= text
+
+  %label{:for => "cform1"} Romaji
+  %input{:id => "cform1", :name => "dsrchtype", :type => "checkbox", :value => "J"}
+
+  %label{:for => "cform2"} Common words
+  %input{:id => "cform2", :name => "engpri", :type => "checkbox", :value => "X"}
+
+  %label{:for => "cform4"} Starts with Kanji
+  %input{:id => "cform4", :name => "firstkanj", :type => "checkbox", :value => "X"}
+

@@ -1,5 +1,7 @@
 require './spec/spec_helper'
-require './lib/auto_complete'
+require './app/data_access/auto_complete'
+require './app/data_access/redis_helpers'
+
 load './lib/tasks/dictionary.rake'
 
 describe AutoComplete do

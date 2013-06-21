@@ -1,4 +1,4 @@
-require './setup'
+require './lib/setup'
 
 class Wwwjdic < Sinatra::Application
   get "/" do

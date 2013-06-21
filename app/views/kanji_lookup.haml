@@ -1,0 +1,79 @@
+!!!
+%html
+  %head
+    %title WWWJDIC: Kanji Selection
+    %meta{:content => "text/html; charset=euc-jp", "http-equiv" => "Content-Type"}/
+    %script{:src => "http://www.csse.monash.edu.au/~jwb/audiock.js", :type => "text/javascript"}
+    :javascript
+      function getCheckedValue(radioObj) {
+        if(!radioObj) return "";
+        var radioLength = radioObj.length;
+        if(radioLength == undefined)
+          if(radioObj.checked) return radioObj.value;
+        else
+         return "";
+        for(var i = 0; i < radioLength; i++)
+        {
+          if(radioObj[i].checked) {
+            return radioObj[i].value;
+          }
+        }
+        return "";
+      }
+    %link{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdic.ico", :rel => "icon", :type => "image/x-icon"}
+  %body{:bgcolor => "ivory", :onload => "sf()", :text => "black"}
+    = render 'header'
+    %form#inp{:action => "http://www.csse.monash.edu.au/~jwb/cgi-bin/wwwjdic.cgi?1D", :method => "POST", :name => "inp"}
+      %font{:size => "-3"} &nbsp;
+      %br/
+      Select one of the kanji Selection Types, enter the appropriate key details, and click on Select Kanji
+      %p
+        %b Selection Type:
+        %select{:name => "kanjsel"}
+          %option{:value => "J"} JIS code (hex)
+          %option{:value => "S"} Shift-JIS code (hex)
+          %option{:value => "K"} Kuten code (rrcc)
+          %option{:value => "U"} Unicode code (hex)
+          %option{:value => "V"} New Nelson index
+          %option{:value => "N"} Classic Nelson index
+          %option{:value => "H"} Halpern's NJECD index
+          %option{:value => "DK"} Halpern's KLD index
+          %option{:value => "DO"} O'Neill's Essential Kanji index
+          %option{:value => "P"} SKIP code
+          %option{:value => "DR"} De Roo code
+          %option{:value => "I"} S&amp;H (Kanji Dictionary) code
+          %option{:value => "B"} Radical (bushu) number
+          %option{:value => "C"} Stroke count
+          %option{:selected => "", :value => "X"} Kanji or reading (kana or romaji)
+          %option{:value => "E"} English meaning
+          %option{:value => "E"} Kanji (cut-and-paste or IM)
+          %option{:value => "Y"} Pinyin reading
+          %option{:value => "W"} Korean reading (ME style)
+          %option{:value => "Q"} Four Corner code
+          %option{:value => "M"} KANJIDIC code (with descriptor)
+          %option{:value => "R"} Multi-radical selection method
+        %br/
+        %b Keyword:
+        %input{:name => "ksrchkey", :size => "40", :type => "text", :value => ""}/
+        = succeed "Optional" do
+          %br/
+        stroke-count (nn) or range (nn-mm):
+        %input{:name => "strcnt", :size => "10", :type => "text", :value => ""}/
+        %br/
+        Include JIS X 0212 kanji:
+        %input{:name => "jis212ok", :type => "checkbox", :value => "on"}/
+        Limit to Jouyou/Jinmeiyou kanji:
+        %input{:name => "jouyoulim", :type => "checkbox", :value => "on"}/
+      %p
+        %input{:type => "submit", :value => "Select Kanji"}/
+        %input{:type => "reset", :value => "Reset"}/
+        = succeed "Further" do
+          %br/
+        information:
+        = succeed "," do
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/SKIP.html"} SKIP code
+        = succeed "," do
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/deroo.html"} De Roo code
+        = succeed "." do
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/cgi-bin/wwwraddisp.cgi?_1_0_0_ivory_black_"} chart of radicals
+    = render :partial => 'footer'

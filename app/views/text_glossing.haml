@@ -1,0 +1,239 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=euc-jp", "http-equiv" => "Content-Type"}/
+    %title WWWJDIC: Text/Word Translation
+    %script{:src => "http://www.csse.monash.edu.au/~jwb/audiock.js", :type => "text/javascript"}
+
+    :javascript
+      function getCheckedValue(radioObj) {
+        if(!radioObj) return "";
+        var radioLength = radioObj.length;
+        if(radioLength == undefined)
+          if(radioObj.checked) return radioObj.value;
+          else
+            return "";
+        for(var i = 0; i < radioLength; i++)
+        {
+          if(radioObj[i].checked) {
+            return radioObj[i].value;
+          }
+        }
+        return "";
+      }
+    %link{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdic.ico", :rel => "icon", :type => "image/x-icon"}
+  %body{:bgcolor => "ivory", :onload => "sf()", :text => "black"}
+    %table.hdr{:width => "100%"}
+      %tr
+        %td.hdr{:rowspan => "2"}
+          %img{:align => "left", :alt => "JIM", :src => "http://www.csse.monash.edu.au/~jwb/jim_th.jpg"}/
+          %span{:style => "font-size: 9pt; font-family: Helvetica, sans-serif; color:  #FFFFFF"} Jim Breen's
+          %br/
+          %b
+            %span{:style => "font-size: 14pt; font-family: Helvetica, sans-serif; color: #FFFFFF"} WWWJDIC
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?1C"} Word Search/Home
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?9T"} Text Glossing
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?1B"} Kanji Lookup
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?1R"} Multi-Radical Kanji
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html"} User Guide
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#dicfil_tag"} Dictionaries
+      %tr
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?10"} Example Search
+        %td.hdr
+          %a{:href => "http://www.edrdg.org/jmdictdb/cgi-bin/edform.py?svc=jmdict&c=1"} Enter New Entry
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?14"} New Examples
+        %td.hdr
+          %a{:href => "/wwwjdic.cgi?19B"} Customize
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#code_tag"} Dictionary Codes
+        %td.hdr
+          %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#don_tag"} Donations
+    %form#inp{:action => "/wwwjdic.cgi?9U", :method => "POST", :name => "inp"}
+      %font{:size => "-3"} &nbsp;
+      %br/
+      Text Glossing. Key or paste Japanese text in the box below.
+      %br/
+      %textarea{:cols => "80", :name => "gloss_line", :rows => "5"}
+      %br/
+      %input{:type => "submit", :value => "Begin Translation"}/
+      %input{:type => "reset", :value => "Reset"}/
+      %font{:size => "-1"}
+        \&nbsp
+        %b Options:
+        \&nbsp;hidden translations:
+        %input{:name => "spantext", :type => "checkbox", :value => "off"}/
+        \&nbsp;select Dictionary:
+        %select{:name => "dicsel"}
+          %option{:value => "1"}
+            Jpn-Eng General (EDICT)
+          %option{:value => "2"}
+            Japanese Names (ENAMDICT)
+          %option{:value => "3"}
+            Computing/Telecomms
+          %option{:value => "4"}
+            Life Sciences/Bio-Med
+          %option{:value => "5"}
+            Legal Terms
+          %option{:value => "6"}
+            Finance/Marketing
+          %option{:value => "7"}
+            Buddhism
+          %option{:value => "8"}
+            Miscellaneous
+          %option{:selected => "", :value => "9"}
+            Special Text-glossing
+          %option{:value => "A"}
+            Engineering/Science
+          %option{:value => "B"}
+            Linguistics
+          %option{:value => "C"}
+            River & Water Systems
+          %option{:value => "D"}
+            Automobile Industry
+          %option{:value => "E"}
+            Japanese Wordnet
+          %option{:value => "F"}
+            Work-in-progress File
+          %option{:value => "G"}
+            Japanese-German (WaDoku)
+          %option{:value => "H"}
+            Japanese-French
+          %option{:value => "I"}
+            Japanese-Russian
+          %option{:value => "J"}
+            Japanese-Swedish
+          %option{:value => "K"}
+            Japanese-Hungarian
+          %option{:value => "L"}
+            Japanese-Spanish
+          %option{:value => "M"}
+            Japanese-Dutch
+          %option{:value => "N"}
+            Japanese-Slovenian
+          %option{:value => "O"}
+            Untranslated
+          %option{:value => "P"}
+            Combined Jpn-Eng
+          %option{:value => "Q"}
+            Expanded Text-glossing
+        \&nbsp;bytes/line:
+        %input{:name => "glleng", :size => "3", :type => "text", :value => "60"}/
+        \&nbsp;no single-character matches:
+        %input{:name => "glonekoff", :type => "checkbox", :value => "on"}/
+        \&nbsp;break on end-of-line:
+        %input{:name => "geolhonour", :type => "checkbox", :value => "on"}/
+        \&nbsp;no repeated translations:
+        %input{:name => "glduptr", :type => "checkbox", :value => "on"}/
+        \&nbsp;only list translations:
+        %input{:name => "glossonly", :type => "checkbox", :value => "off"}/
+        \&nbsp;skip katakana words:
+        %input{:name => "skipkata", :type => "checkbox", :value => "off"}/
+        \&nbsp;skip hiragana words:
+        %input{:name => "skiphira", :type => "checkbox", :value => "off"}/
+        \&nbsp;skip names:
+        %input{:name => "skipname", :type => "checkbox", :value => "off"}/
+    %hr/
+    %form{:action => "/wwwjdic.cgi?9V", :method => "POST"}
+      Alternatively, enter the URL of a WWW page for a translation of the Japanese words in it::
+      %br/
+      URL:
+      %input{:name => "tran_url", :size => "80", :type => "text"}/
+      %br/
+      %input{:type => "submit", :value => "Send URL "}/
+      %input{:type => "reset", :value => "Reset"}/
+      %font{:size => "-1"}
+        \&nbsp
+        %b Options:
+        \&nbsp;hidden translations:
+        %input{:name => "spantext", :type => "checkbox", :value => "off"}/
+        \&nbsp;select Dictionary:
+        %select{:name => "dicsel"}
+          %option{:value => "1"}
+            Jpn-Eng General (EDICT)
+          %option{:value => "2"}
+            Japanese Names (ENAMDICT)
+          %option{:value => "3"}
+            Computing/Telecomms
+          %option{:value => "4"}
+            Life Sciences/Bio-Med
+          %option{:value => "5"}
+            Legal Terms
+          %option{:value => "6"}
+            Finance/Marketing
+          %option{:value => "7"}
+            Buddhism
+          %option{:value => "8"}
+            Miscellaneous
+          %option{:selected => "", :value => "9"}
+            Special Text-glossing
+          %option{:value => "A"}
+            Engineering/Science
+          %option{:value => "B"}
+            Linguistics
+          %option{:value => "C"}
+            River & Water Systems
+          %option{:value => "D"}
+            Automobile Industry
+          %option{:value => "E"}
+            Japanese Wordnet
+          %option{:value => "F"}
+            Work-in-progress File
+          %option{:value => "G"}
+            Japanese-German (WaDoku)
+          %option{:value => "H"}
+            Japanese-French
+          %option{:value => "I"}
+            Japanese-Russian
+          %option{:value => "J"}
+            Japanese-Swedish
+          %option{:value => "K"}
+            Japanese-Hungarian
+          %option{:value => "L"}
+            Japanese-Spanish
+          %option{:value => "M"}
+            Japanese-Dutch
+          %option{:value => "N"}
+            Japanese-Slovenian
+          %option{:value => "O"}
+            Untranslated
+          %option{:value => "P"}
+            Combined Jpn-Eng
+          %option{:value => "Q"}
+            Expanded Text-glossing
+        \&nbsp;bytes/line:
+        %input{:name => "glleng", :size => "3", :type => "text", :value => "60"}/
+        \&nbsp;no single-character matches:
+        %input{:name => "glonekoff", :type => "checkbox", :value => "on"}/
+        \&nbsp;break on end-of-line:
+        %input{:name => "geolhonour", :type => "checkbox", :value => "on"}/
+        \&nbsp;no repeated translations:
+        %input{:name => "glduptr", :type => "checkbox", :value => "on"}/
+        \&nbsp;only list translations:
+        %input{:name => "glossonly", :type => "checkbox", :value => "off"}/
+        \&nbsp;skip katakana words:
+        %input{:name => "skipkata", :type => "checkbox", :value => "off"}/
+        \&nbsp;skip hiragana words:
+        %input{:name => "skiphira", :type => "checkbox", :value => "off"}/
+        \&nbsp;skip names:
+        %input{:name => "skipname", :type => "checkbox", :value => "off"}/
+        \&nbsp;retain non-Japanese text:
+        %input{:name => "gasciiok", :type => "checkbox", :value => "on"}/
+    %hr/
+    %center
+      %font{:size => "-1"}
+        WWWJDIC site: Monash University  &nbsp; &nbsp;  © Copyright 2011,
+        = succeed "." do
+          %a{:href => "http://www.edrdg.org/"} Electronic Dictionary Research and Development Group
+        (
+        %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#copyr_tag"}> Details
+        ) (
+        %a{:href => "http://www.csse.monash.edu.au/~jwb/wwwjdicinf.html#disc_tag"}> Disclaimer
+        )
