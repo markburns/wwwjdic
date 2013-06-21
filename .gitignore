@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #----------------------------------------------------------------------------
 # Ignore these files when commiting to a git repository
 #
@@ -66,10 +65,8 @@ tmp/*
 
 # keep OmniAuth service provider secrets out of the Git repo
 config/initializers/omniauth.rb
-=======
 *.swp
 .DS_Store
->>>>>>> moved gitignore back to root level, and TODO list. Added a README for the project
 \!.gitkeep
 *.swo
 dump.rdb
