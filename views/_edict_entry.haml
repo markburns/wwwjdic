@@ -1,0 +1,22 @@
+.entry(style='position:relative')
+  %h2(style='display:inline')
+    = result_number
+
+  %div(style='display:inline')
+    - if(entry.kanji.present?)
+      %span.main_reading
+        = linkable_word entry.kanji
+      - entry.kana.each do |kana|
+        = linkable_word kana
+
+    - elsif entry.kana
+      %span.main_reading
+        - entry.kana.each do |kana|
+          = linkable_word kana
+
+    .english
+      - entry.english_definitions.each_with_index do  |definition, index|
+        = linkable_word definition, 'english_definition'
+  = partial 'entry_links', :locals => {:entry => entry}
+  = partial 'example_sentence'
+

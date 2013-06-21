@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=#{CHARACTER_ENCODING}", "http-equiv" => "Content-Type"}/
+    %title WWWJDIC: Word Display
+    = partial 'head'
+
+  %body
+    = partial 'header'
+    = yield
+
+    %script(type='text/html' id='suggestion_template')
+      .suggestion_container
+        .suggestion
+          %a(href='word-search?query="{{suggestion_text}}"')
+            %span.clickable
+              {{suggestion_text}}
+
+    #suggestions
