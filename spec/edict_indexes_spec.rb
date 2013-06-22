@@ -1,7 +1,5 @@
 #encoding: utf-8
 require File.expand_path('spec/spec_helper')
-require './db/edict_indexes'
-require './app/data_access/redis_helpers'
 
 describe EdictIndexes do
   include RedisHelpers

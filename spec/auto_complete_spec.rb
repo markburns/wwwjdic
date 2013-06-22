@@ -1,11 +1,8 @@
 require './spec/spec_helper'
-require './app/data_access/auto_complete'
-require './app/data_access/redis_helpers'
-
-load './lib/tasks/dictionary.rake'
 
 describe AutoComplete do
   before do
+    load './lib/tasks/dictionary.rake'
     Rake::Task['db:destructive_rebuild'].invoke('spec/fixtures/edict_small', warn=false)
   end
 

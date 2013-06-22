@@ -1,5 +1,3 @@
-require 'active_support/core_ext/object'
-
 module Haml
   module Helpers
     def partial(template, *args)

@@ -1,5 +1,4 @@
-#encoding: utf-8
-require './app/data_access/page'
+require './spec/spec_helper'
 
 describe Page do
   context "paginating" do

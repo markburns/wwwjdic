@@ -1,4 +1,4 @@
-require './app/helpers/helpers'
+require './spec/spec_helper'
 
 describe Haml::Helpers do
   include Haml::Helpers

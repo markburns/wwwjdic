@@ -1,12 +1,18 @@
-require 'redis'
-require 'redis-namespace'
-
 module RedisHelpers
   DATABASES = {'development' => 0, 'test' => 1, 'production' => 2}
 
   def env
     ENV['SINATRA_ENVIRONMENT'] || 'development'
   end
+
+  def clear_redis
+    begin
+      redis.flushdb
+    rescue
+      raise Exception.new "redis-server should be running"
+    end
+  end
+
 
   def redis
     @db ||= load_redis

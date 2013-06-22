@@ -1,8 +1,5 @@
 #encoding: utf-8
 require File.expand_path('spec/spec_helper')
-require 'active_support/core_ext/hash'
-require './app/models/search'
-require './app/data_access/tokenizer'
 
 describe Search do
   let(:today) do

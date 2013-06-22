@@ -1,17 +1,6 @@
-require 'rubygems'
-require 'rake'
-
-load 'lib/tasks/redis.rake'
+require './lib/all_requires'
 
 module RedisHelpers
-  def clear_redis
-    begin
-      redis.flushdb
-    rescue
-      raise Exception.new "redis-server should be running"
-    end
-  end
-
   def env
     'test'
   end
