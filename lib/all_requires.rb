@@ -23,3 +23,6 @@ require './lib/edict_constants'
 require './db/edict_parser'
 require './db/edict_indexes'
 require './db/dictionaries'
+
+require 'rake'
+load './lib/tasks/dictionary.rake'

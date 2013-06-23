@@ -1,7 +1,3 @@
-Given /^I have started the redis server$/ do
-  Rake::Task['redis:start'].invoke
-end
-
 Given /^the admin has imported a small edict database$/ do
   Rake::Task['db:destructive_rebuild'].invoke('./spec/fixtures/edict_small',
                                               confirm=false,

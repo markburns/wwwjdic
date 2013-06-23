@@ -1,7 +1,5 @@
 require './lib/all_requires'
 
-Rake::Task['redis:start'].invoke
-
 class Wwwjdic < Sinatra::Application
   include EdictConstants
   set :haml, :format => :html5

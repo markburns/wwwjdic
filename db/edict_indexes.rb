@@ -55,7 +55,7 @@ class EdictIndexes < HashWithIndifferentAccess
     @line_count = lines.count
     tokens = []
 
-    lines.each_with_index do |l, index|
+    lines.lazy.each_with_index do |l, index|
       line_number = index + 1
       parser = parser(l)
 

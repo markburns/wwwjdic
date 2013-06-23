@@ -18,6 +18,5 @@ namespace :db do
 
     @dictionary = Dictionaries.new :edict => args[:filename]
     @dictionary.rebuild_database!
-    debugger
   end
 end
