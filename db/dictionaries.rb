@@ -1,6 +1,3 @@
-require './db/edict_indexes'
-require './app/data_access/redis_helpers'
-
 class Dictionaries
   include RedisHelpers
 

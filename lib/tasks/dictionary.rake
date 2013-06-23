@@ -1,5 +1,5 @@
 require 'rake'
-require './db/dictionaries'
+require './lib/all_requires'
 
 namespace :db do
   desc "Deletes and rebuilds the database, Pass in environment to select a different namespace and database integer value - Valid values development, test, production corresponding to databases 1,2 and 3 respectively"
@@ -18,5 +18,6 @@ namespace :db do
 
     @dictionary = Dictionaries.new :edict => args[:filename]
     @dictionary.rebuild_database!
+    debugger
   end
 end

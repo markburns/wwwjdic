@@ -1,8 +1,3 @@
-require 'active_support/core_ext/hash'
-require './db/edict_parser'
-require './app/data_access/redis_helpers'
-
-
 class EdictIndexes < HashWithIndifferentAccess
   include RedisHelpers
   LINES_UNTIL_FLUSH = 30000

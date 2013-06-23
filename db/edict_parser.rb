@@ -1,6 +1,4 @@
 #encoding: utf-8
-require 'active_support/core_ext/object'
-require './lib/edict_constants'
 
 class ::Regexp
   def +(re)

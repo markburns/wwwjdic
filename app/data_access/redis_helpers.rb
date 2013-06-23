@@ -6,13 +6,8 @@ module RedisHelpers
   end
 
   def clear_redis
-    begin
-      redis.flushdb
-    rescue
-      raise Exception.new "redis-server should be running"
-    end
+    with_retry {redis.flushdb}
   end
-
 
   def redis
     @db ||= load_redis
@@ -23,14 +18,6 @@ module RedisHelpers
     r = Redis.new :db => DATABASES[env]
 
     r.dbsize
-    return Redis::Namespace.new("wwwjdic_#{env}", :redis => r)
-  rescue
-    retries ||= 0
-    Rake::Task['redis:start'].invoke
-    retries += 1
-    puts 'retrying after restarting redis'
-    sleep 3
-    retry unless retries == 5
-    raise Exception.new "Failed to restart redis after 5 retries"
+    Redis::Namespace.new("wwwjdic_#{env}", :redis => r)
   end
 end

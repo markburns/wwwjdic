@@ -20,8 +20,6 @@ require './app/models/tokenizer'
 require './app/models/search'
 require './app/models/edict_entry'
 require './lib/edict_constants'
-
-load './lib/tasks/redis.rake'
-load './lib/tasks/dictionary.rake'
-
-
+require './db/edict_parser'
+require './db/edict_indexes'
+require './db/dictionaries'
