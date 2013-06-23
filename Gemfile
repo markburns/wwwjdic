@@ -8,7 +8,9 @@ gem 'awesome_print'
 gem 'redis'
 gem 'redis-namespace'
 gem 'haml'
-gem 'active_support', '~> 3.0'
+gem 'activesupport', '~> 3.2'
+gem 'dotiw'
+gem 'rails'
 gem 'rake'
 
 group :test, :development do

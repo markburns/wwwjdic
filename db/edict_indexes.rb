@@ -1,6 +1,6 @@
 class EdictIndexes < HashWithIndifferentAccess
   include RedisHelpers
-  LINES_UNTIL_FLUSH = 30000
+  LINES_UNTIL_FLUSH = 10_000
 
   def initialize input_filename
     @input_filename = input_filename
@@ -17,14 +17,12 @@ class EdictIndexes < HashWithIndifferentAccess
     redis.flushdb
   end
 
-
   def import *types
     @start_time = Time.now
     puts "Building edict indexes and entries"
 
-    redis.multi
-
-    tokens_for(*types).each do |line_number, type, values|
+    tokens_for(*types) do |line_number, type, values|
+    redis.pipelined do
       values.each do |v|
         redis.sadd "#{type}:#{v}", line_number
 
@@ -39,23 +37,18 @@ class EdictIndexes < HashWithIndifferentAccess
         redis.zadd('auto_complete', 0, prefix)
       end
 
-      redis.hmset "entry:#{line_number}", type, values
-
-      if (line_number % LINES_UNTIL_FLUSH) == 0
-        redis.exec
-        redis.multi
-      end
+      redis.hmset "entry:#{line_number}", type, values.to_json
     end
-    puts "Final redis.exec"
-    redis.exec
+    end
   end
 
   def tokens_for *types
     key_count = 0
-    @line_count = lines.count
-    tokens = []
 
-    lines.lazy.each_with_index do |l, index|
+    @line_count = read_lines.count
+
+    lines = read_lines.lazy.with_index
+    lines.each do |l, index|
       line_number = index + 1
       parser = parser(l)
 
@@ -66,20 +59,19 @@ class EdictIndexes < HashWithIndifferentAccess
           log(type, values, line_number, key_count)
 
           key_count +=1
-          tokens << [line_number, type, values]
+          yield [line_number, type, values]
         end
       end
     end
-
-    tokens
   end
 
+   
   def log type, value, line_number, key_count
     should_notify = type == :kanji && (line_number % LINES_UNTIL_FLUSH) == 0
     if should_notify
-      say_time
-      puts "#{key_count} keys added"
       percent = 100.0 * line_number.to_f / @line_count.to_f
+      say_time percent
+      puts "#{key_count} keys added"
       puts "Adding entry ##{line_number}/#{@line_count} - #{percent}%, #{type}:#{value}"
     end
   end
@@ -90,18 +82,31 @@ class EdictIndexes < HashWithIndifferentAccess
     Kernel.puts s
   end
 
-  def say_time
-    diff = Time.now - @start_time
-    puts "Time since start: #{diff}"
+  def say_time percentage
+    seconds = Time.now - @start_time
+    puts "_" * 80
+    puts "Time since start: #{formatted_eta seconds}s"
+    percentage_per_second = percentage / seconds
+    remaining_percent = (100 - percentage)
+
+    remaining_seconds = remaining_percent / percentage_per_second
+    eta = Time.now + remaining_seconds
+
+    puts "ETA: #{eta}\n     #{formatted_eta remaining_seconds}"
   end
 
-  def lines
-    return @lines if @lines
-    @lines = convert_to_utf_8
+  def formatted_eta seconds
+    return "#{seconds}s" if seconds < 60
 
-    @lines = @lines[1..-1] if @lines[0][0..5]=="/EDICT" #Skip first line if standard comment
+    "#{(seconds / 60).to_i}m #{seconds % 60}s" if seconds < 3600
+  end
 
-    @lines
+  def read_lines
+    @read_lines ||= convert_to_utf_8
+
+    @read_lines = @read_lines[1..-1] if @read_lines[0][0..5]=="/EDICT" #Skip first line if standard comment
+
+    @read_lines
   end
 
   def parser line
