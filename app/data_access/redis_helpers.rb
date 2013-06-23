@@ -6,7 +6,7 @@ module RedisHelpers
   end
 
   def clear_redis
-    with_retry {redis.flushdb}
+    redis.flushdb
   end
 
   def redis

@@ -1,4 +1,3 @@
-load './lib/tasks/cucumber.rake'
 load './lib/tasks/dictionary.rake'
 
 $LOAD_PATH.unshift 'lib'
