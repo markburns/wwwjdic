@@ -1,17 +1,20 @@
 source "https://rubygems.org"
 
 gem 'sinatra'
+gem 'rack-conneg'
+
 gem 'thin'
 gem 'shotgun'
+gem 'rake'
+
 gem 'wirble'
 gem 'awesome_print'
+
 gem 'redis'
 gem 'redis-namespace'
+
 gem 'haml'
 gem 'activesupport', '~> 3.2'
-gem 'dotiw'
-gem 'rails'
-gem 'rake'
 
 group :test, :development do
   gem 'debugger'

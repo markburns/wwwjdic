@@ -17,6 +17,4 @@
     .english
       - entry.english_definitions.each_with_index do  |definition, index|
         = linkable_word definition, 'english_definition'
-  = partial 'entry_links', :locals => {:entry => entry}
-  = partial 'example_sentence'
 

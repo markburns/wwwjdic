@@ -2,18 +2,33 @@ require './lib/setup'
 
 class Wwwjdic < Sinatra::Application
   get "/" do
-    redirect "/word-search"
+    word_search
   end
 
-  get "/word-search" do
+  get "/word-search/:query" do
+    word_search
+  end
+
+  def word_search
     @query = params['query']
     return haml :word_search if @query.blank?
 
 
     @edict_entries = Search.perform @query
-
     @show_extended = true
-    haml :search_results
+
+    respond_to do |wants|
+      wants.json  { @edict_entries.to_json }
+      wants.html  { haml :search_results }
+    end
+  end
+
+  get "/:query" do
+    word_search
+  end
+
+  get "/word-search" do
+    word_search
   end
 
   get '/auto-complete' do
