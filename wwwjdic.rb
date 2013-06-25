@@ -1,6 +1,13 @@
 require './lib/setup'
 
 class Wwwjdic < Sinatra::Application
+  get '/auto-complete' do
+    headers 'Content-Type' => "content-type:text/javascript;charset=utf-8"
+
+    results = AutoComplete.find params['auto_complete']
+    results.to_json
+  end
+
   word_search = lambda do
     @query = params['query']
     return haml :word_search if @query.blank?
@@ -15,15 +22,8 @@ class Wwwjdic < Sinatra::Application
     end
   end
 
-  get "/"                   &word_search
-  get "/:query"             &word_search
-  get "/word-search"        &word_search
-  get "/word-search/:query" &word_search
-
-  get '/auto-complete' do
-    headers 'Content-Type' => "content-type:text/javascript;charset=utf-8"
-
-    results = AutoComplete.find params['auto_complete']
-    results.to_json
-  end
+  get "/word-search/:query", &word_search
+  get "/word-search",        &word_search
+  get "/:query",             &word_search
+  get "/",                   &word_search
 end
