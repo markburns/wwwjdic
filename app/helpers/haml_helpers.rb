@@ -20,21 +20,7 @@ module Haml
     end
 
     def japanese_pod_mp3 entry
-      kana_encoded  = URI.encode "kana=#{URI.encode entry.kana.first }" if entry.kana.any?
-      kanji_encoded = URI.encode "kanji=#{URI.encode entry.kanji}"      if entry.kanji.present?
-
-      uri = if kana_encoded.present? && kanji_encoded.present?
-              kana_encoded << "%26" << kanji_encoded
-            elsif kana_encoded.present?
-              kana_encoded
-            elsif kanji_encoded.present?
-              kanji_encoded
-            end
-      return unless uri
-
-      haml_tag(:script, {:type => 'text/javascript' }) do
-        haml_concat "m('#{uri}');"
-      end
+      JapanesePod.new(entry).html
     end
 
     def linkable_word text, word_class=''
