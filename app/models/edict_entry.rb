@@ -6,7 +6,7 @@ class EdictEntry < HashWithIndifferentAccess
   end
 
   def kanji
-    self[:kanji]
+    JSON.parse(self[:kanji]).first
   end
 
 

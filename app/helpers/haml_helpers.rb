@@ -48,11 +48,12 @@ module Haml
       elsif text =~ /(^|\b)#{@query}\b/
         before, after = text.split(/(^|\b)#{@query}/)
         link = "<span#{word_class}>#{before.try :strip}"
-        link << "<a class='highlight' href='/word-search?query=#{@query.strip}'>#{@query_without_quotes}</a>"
+        encoded = URI.encode @query.strip
+        link << "<a class='highlight' href='/word-search?query=#{encoded}'>#{@query_without_quotes}</a>"
         link << "#{after.try :strip}</span>"
       else
         unquoted = text.gsub(/"/,'')
-        "<a href='/word-search?query=#{text}'><span#{word_class}>#{unquoted}</span></a>"
+        "<a href='/word-search?query=#{URI.encode text}'><span#{word_class}>#{unquoted}</span></a>"
       end
     end
   end

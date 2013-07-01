@@ -9,3 +9,4 @@ Feature: Examine kanji in an entry
   Scenario:
     Given that I have searched for "total"
     When I view the result for "『る"
+    Then I should see "しめる"
