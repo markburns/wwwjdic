@@ -6,7 +6,7 @@ class EdictEntry < HashWithIndifferentAccess
   end
 
   def kanji
-    JSON.parse(self[:kanji]).first
+    (self[:kanji]).first
   end
 
 
@@ -18,8 +18,9 @@ class EdictEntry < HashWithIndifferentAccess
 
   def from_json input
     input = input.with_indifferent_access
+
     {}.with_indifferent_access.tap do |e|
-      e[:kanji]               = input[:kanji] if input[:kanji]
+      e[:kanji]               = extract input[:kanji]
       e[:kana]                = extract input[:kana]
       e[:english_definitions] = extract input[:english_definitions]
       e[:english_words]       = extract input[:english_words]
@@ -27,6 +28,6 @@ class EdictEntry < HashWithIndifferentAccess
   end
 
   def extract value
-    Array(value) if value
+    JSON.parse value if value
   end
 end

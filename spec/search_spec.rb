@@ -4,7 +4,7 @@ require File.expand_path('spec/spec_helper')
 describe Search do
   let(:today) do
     {
-      "kanji"               => "今日",
+      "kanji"               => ["今日"],
       "kana"                => ["きょう"],
       "english_definitions" => ["today", "this day", "present"],
       "english_words"       => ["today", "this", "day", "present"] 
@@ -13,20 +13,20 @@ describe Search do
 
   let(:today_json) do
     {
-      :kanji               => '今日',
+      :kanji               => ['今日'],
       :english_definitions => ['today', 'this day', 'present'],
       :english_words       => ['today', 'this', 'day', 'present'],
       :kana                => ['きょう']
-    }.with_indifferent_access
+    }.to_json
   end
 
   let(:hello_json) do 
     {
-      :kanji               => '今日は',
+      :kanji               => ['今日は'],
       :english_definitions => ['hello', 'good morning'],
       :english_words       => ['hello', 'good', 'morning'],
       :kana                => ['こんにちは']
-    }
+    }.to_json
   end
 
   before do

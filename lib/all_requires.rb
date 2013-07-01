@@ -14,6 +14,7 @@ require './app/data_access/page'
 
 
 require './lib/legacy_app'
+require './app/helpers/linkable_word'
 require './app/helpers/haml_helpers'
 
 require './app/models/tokenizer'
