@@ -8,7 +8,6 @@ Feature: search
 
   Scenario: Search for "どうのじてん"
     Given I am on the home page
-    Then I should be redirected to the "/word-search" page
     When I fill in "query" with "どうのじてん"
     And press "search"
     Then I should see "repetition of kanji (sometimes voiced)" within "#results"

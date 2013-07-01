@@ -8,13 +8,21 @@ class Wwwjdic < Sinatra::Application
     results.to_json
   end
 
-  word_search = lambda do
-    @query = params['query']
-    return haml :word_search if @query.blank?
+  def query
+    @query ||= params['query']
+  end
 
-
-    @edict_entries = Search.perform @query
+  def lookup
+    @edict_entries = Search.perform query
     @show_extended = true
+  end
+
+  word_search = lambda do
+    if query.present?
+      lookup
+    else
+      return haml :word_search
+    end
 
     respond_to do |wants|
       wants.json  { @edict_entries.to_json }

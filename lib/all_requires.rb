@@ -13,8 +13,8 @@ require './app/data_access/auto_complete'
 require './app/data_access/page'
 
 
-require './app/helpers/legacy_app'
-require './app/helpers/helpers'
+require './lib/legacy_app'
+require './app/helpers/haml_helpers'
 
 require './app/models/tokenizer'
 require './app/models/search'
