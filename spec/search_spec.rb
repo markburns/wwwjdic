@@ -2,7 +2,7 @@
 require File.expand_path('spec/spec_helper')
 
 describe Search do
-  let(:today) do
+  let(:today_result) do
     {
       "kanji"               => ["今日"],
       "kana"                => ["きょう"],
@@ -11,22 +11,22 @@ describe Search do
     }
   end
 
-  let(:today_json) do
+  let(:today_redis) do
     {
-      :kanji               => ['今日'],
-      :english_definitions => ['today', 'this day', 'present'],
-      :english_words       => ['today', 'this', 'day', 'present'],
-      :kana                => ['きょう']
-    }.to_json
+      :kanji               => ['今日'].to_json,
+      :english_definitions => ['today', 'this day', 'present'].to_json,
+      :english_words       => ['today', 'this', 'day', 'present'].to_json,
+      :kana                => ['きょう'].to_json
+    }
   end
 
-  let(:hello_json) do 
+  let(:hello_redis) do 
     {
-      :kanji               => ['今日は'],
-      :english_definitions => ['hello', 'good morning'],
-      :english_words       => ['hello', 'good', 'morning'],
-      :kana                => ['こんにちは']
-    }.to_json
+      :kanji               => ['今日は'].to_json,
+      :english_definitions => ['hello', 'good morning'].to_json,
+      :english_words       => ['hello', 'good', 'morning'].to_json,
+      :kana                => ['こんにちは'].to_json
+    }
   end
 
   before do
@@ -39,8 +39,8 @@ describe Search do
     before do
       @redis.should_receive(:smembers).with('kanji:今日').and_return ["7", "9000"]
 
-      @redis.should_receive(:hgetall).with('entry:7').and_return today_json
-      @redis.should_receive(:hgetall).with('entry:9000').and_return hello_json
+      @redis.should_receive(:hgetall).with('entry:7').and_return today_redis
+      @redis.should_receive(:hgetall).with('entry:9000').and_return hello_redis
 
       @entries = Search.find(:kanji, '今日')
     end
@@ -75,17 +75,17 @@ describe Search do
 
   it "allows lookup by English" do
     @redis.should_receive(:smembers).with('english_words:today').and_return ["10"]
-    @redis.should_receive(:hgetall).with('entry:10').and_return today_json
+    @redis.should_receive(:hgetall).with('entry:10').and_return today_redis
 
-    Search.find(:english_words, 'today').should == [today]
+    Search.find(:english_words, 'today').should == [today_result]
   end
 
 
   it "allows lookup by Kana" do
     @redis.should_receive(:smembers).with('kana:きょう').and_return ["12"]
-    @redis.should_receive(:hgetall).with('entry:12').and_return today_json
-    EdictEntry.should_receive(:new).with(today_json).and_return today
-    Search.find(:kana, 'きょう').should == [today]
+    @redis.should_receive(:hgetall).with('entry:12').and_return today_redis
+    EdictEntry.should_receive(:new).with(today_redis).and_return today_result
+    Search.find(:kana, 'きょう').should == [today_result]
   end
 
   describe "#search" do
@@ -95,8 +95,8 @@ describe Search do
       @redis.should_receive(:smembers).at_least(:once).with('english_words:今日').      and_return []
       @redis.should_receive(:smembers).at_least(:once).with('kanji:今日').              and_return ["7", "2"]
 
-      @redis.should_receive(:hgetall).with('entry:7').and_return today_json
-      @redis.should_receive(:hgetall).with('entry:2').and_return hello_json
+      @redis.should_receive(:hgetall).with('entry:7').and_return today_redis
+      @redis.should_receive(:hgetall).with('entry:2').and_return hello_redis
 
       Search.new("今日").results.length.should == 2
     end
@@ -105,9 +105,9 @@ describe Search do
       @redis.should_receive(:smembers).with('english_definitions:to join').and_return %w(1 2)
       @redis.should_receive(:smembers).with('english_definitions:join').and_return %w(4)
 
-      @redis.should_receive(:hgetall).with('entry:1').and_return today_json
-      @redis.should_receive(:hgetall).with('entry:2').and_return hello_json
-      @redis.should_receive(:hgetall).with('entry:4').and_return hello_json
+      @redis.should_receive(:hgetall).with('entry:1').and_return today_redis
+      @redis.should_receive(:hgetall).with('entry:2').and_return hello_redis
+      @redis.should_receive(:hgetall).with('entry:4').and_return hello_redis
 
 
       results = Search.new("to join", :english_definitions).results
@@ -124,7 +124,7 @@ describe Search do
         @redis.should_receive(:smembers).with('english_words:today').      and_return []
         @redis.should_receive(:smembers).with('kanji:today').              and_return []
 
-        @redis.should_receive(:hgetall).with('entry:7').and_return today_json
+        @redis.should_receive(:hgetall).with('entry:7').and_return today_redis
 
         results= Search.new("today").results
         results.length.should == 1
@@ -141,8 +141,8 @@ describe Search do
         @redis.should_receive(:smembers).with('english_definitions:hello').and_return ["2"]
 
 
-        @redis.should_receive(:hgetall).with('entry:7').and_return today_json
-        @redis.should_receive(:hgetall).with('entry:2').and_return hello_json
+        @redis.should_receive(:hgetall).with('entry:7').and_return today_redis
+        @redis.should_receive(:hgetall).with('entry:2').and_return hello_redis
 
 
         Search.new("today hello", :english_definitions).results.length.should == 2

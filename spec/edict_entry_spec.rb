@@ -3,9 +3,9 @@ require File.expand_path('spec/spec_helper')
 
 describe EdictEntry do
   let(:attributes) do
-    {:kana => 'きょう',
-     :kanji => ["今日"],
-     :english_definitions => ['today', 'hello']}.to_json
+    {:kana => ['きょう'].to_json,
+     :kanji => ["今日"].to_json,
+     :english_definitions => ['today', 'hello'].to_json}
   end
 
   before do
