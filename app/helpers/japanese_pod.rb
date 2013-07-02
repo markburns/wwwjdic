@@ -6,7 +6,7 @@ class JapanesePod
   end
 
   def html
-    return '' unless uri
+    return '' if no_params?
 
     <<-EOF
     <script type='text/javascript'>
@@ -17,20 +17,40 @@ class JapanesePod
 
   def uri
     @uri ||= 
-      if kana_encoded.present? && kanji_encoded.present?
-        kana_encoded << "%26" << kanji_encoded
-      elsif kana_encoded.present?
-        kana_encoded
-      elsif kanji_encoded.present?
-        kanji_encoded
+      if both?
+        both_params
+      elsif kana?
+        kana_param
+      elsif kanji?
+        kanji_param
       end
   end
 
-  def kanji_encoded 
-    @kanji_encoded ||= URI.encode "kanji=#{URI.encode entry.kanji}"      if entry.kanji.present?
+  def no_params?
+    !kana? && !kanji?
   end
 
-  def kana_encoded
-    @kana_encoded ||= URI.encode "kana=#{URI.encode entry.kana.first }" if entry.kana.any?
+  def both_params
+    kana_param << "%26" << kanji_param
+  end
+
+  def kana?
+    kana_param.present?
+  end
+
+  def kanji?
+    kanji_param.present?
+  end
+
+  def both?
+    kana? && kanji?
+  end
+
+  def kanji_param
+    @kanji_param ||= URI.encode "kanji=#{URI.encode entry.kanji}"      if entry.kanji.present?
+  end
+
+  def kana_param
+    @kana_param ||= URI.encode "kana=#{URI.encode entry.kana.first }" if entry.kana.any?
   end
 end

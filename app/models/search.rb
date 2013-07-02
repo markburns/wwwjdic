@@ -6,6 +6,21 @@ class Search
   SORTED_ATTRIBUTES = [ :kanji, :kana ]  + FULL_TEXT_LOOKUP_FIELDS
   PAGE_SIZE=25
 
+  class << self
+    def perform query
+      new(query).results
+    end
+
+    def find type, key, page=1
+      ids = redis.smembers "#{type}:#{key}"
+      pages = Page.paginate(ids, page)
+      return nil if pages.empty?
+
+      pages.map do |id|
+        EdictEntry.new redis.hgetall "entry:#{id}"
+      end
+    end
+  end
 
   def initialize query, *criteria
     @query = query
@@ -63,19 +78,5 @@ class Search
 
   def tokens
     @tokens ||= Tokenizer.new(@query).tokens
-  end
-
-  def self.perform query
-    new(query).results
-  end
-
-  def self.find type, key, page=1
-    ids = redis.smembers "#{type}:#{key}"
-    pages = Page.paginate(ids, page)
-    return nil if pages.empty?
-
-    pages.map do |id|
-      EdictEntry.new redis.hgetall "entry:#{id}"
-    end
   end
 end

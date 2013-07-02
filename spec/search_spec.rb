@@ -4,10 +4,10 @@ require File.expand_path('spec/spec_helper')
 describe Search do
   let(:today_result) do
     {
-      "kanji"               => ["今日"],
-      "kana"                => ["きょう"],
-      "english_definitions" => ["today", "this day", "present"],
-      "english_words"       => ["today", "this", "day", "present"] 
+      :kanji               => ["今日"],
+      :kana                => ["きょう"],
+      :english_definitions => ["today", "this day", "present"],
+      :english_words       => ["today", "this", "day", "present"] 
     }
   end
 
@@ -77,7 +77,12 @@ describe Search do
     @redis.should_receive(:smembers).with('english_words:today').and_return ["10"]
     @redis.should_receive(:hgetall).with('entry:10').and_return today_redis
 
-    Search.find(:english_words, 'today').should == [today_result]
+    result = Search.find(:english_words, 'today').first
+
+    result.kanji.              should == "今日" 
+    result.kana.               should == today_result[:kana]
+    result.english_definitions.should == today_result[:english_definitions]
+    result.english_words.      should == today_result[:english_words]
   end
 
 
