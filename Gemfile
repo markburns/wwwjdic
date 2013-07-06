@@ -16,6 +16,9 @@ gem 'activesupport', '~> 3.2'
 
 group :test, :development do
   gem 'wirble'
+  gem 'pry'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'awesome_print'
   gem 'debugger'
   gem 'capybara'
