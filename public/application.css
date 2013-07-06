@@ -48,6 +48,10 @@ span.emphasis {
   color: green;
 }
 
+table { margin: 20px; }
+td { margin: 0px; padding: 10px; border: 1px solid;}
+tr { margin: 0px; padding: 0px; }
+
 #suggestions a:link {
   color: black;
 }
@@ -217,7 +221,9 @@ span.english_definitions:hover a{
   padding: 0px;
 }
 
+
 table.hdr {
+  margin: 0px;
   border-collapse: collapse; border: 2px solid #0000cc;
 }
 

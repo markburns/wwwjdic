@@ -1,6 +1,11 @@
 require './lib/all_requires'
 
 class Wwwjdic < Sinatra::Application
+  configure :development do
+    use BetterErrors::Middleware
+    BetterErrors.application_root = __dir__
+  end
+
   include EdictConstants
   set :haml, :format => :html5
 

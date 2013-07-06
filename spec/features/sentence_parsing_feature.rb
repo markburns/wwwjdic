@@ -5,7 +5,7 @@ describe "Sentence parsing", request: true do
     sentence = URI.encode "太郎はこの本を二郎を見た女性に渡した。"
     visit "/parse_sentence/#{sentence}"
 
-    page.body.should == <<-EXPECTED_OUTPUT.gsub(/^\s*/, "")
+    expected = <<-EXPECTED_OUTPUT.gsub(/^\s*/, "")
      太郎	名詞,固有名詞,人名,名,*,*,太郎,タロウ,タロー
      は	助詞,係助詞,*,*,*,*,は,ハ,ワ
      この	連体詞,*,*,*,*,*,この,コノ,コノ
@@ -23,5 +23,7 @@ describe "Sentence parsing", request: true do
      。	記号,句点,*,*,*,*,。,。,。
      EOS
     EXPECTED_OUTPUT
+
+    page.body.should ==   expected
   end
 end

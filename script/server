@@ -1,0 +1,1 @@
+bundle exec rerun --dir app "thin start --debug --port=4000 -R config.ru"

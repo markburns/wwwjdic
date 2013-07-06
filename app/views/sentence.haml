@@ -1,0 +1,23 @@
+%form{:id => "search_form", :method => "post", 'accept-charset' => CHARACTER_ENCODING}
+  %textarea{:id => "sentence", :name => 'sentence', :cols => "100", rows: 10, :value => "", :autocomplete =>"off"}
+  %input{:type => "submit", :id => 'search', :value => "Search"}
+
+
+%table
+  %thead
+    %th Kanji
+    %th Part of speech
+    %th Part of speech
+    %th 
+    %th
+    %th
+    %th
+    %th Dictionary Form
+    %th Katakana
+    %th Katakana
+
+  %tbody
+    - @results.each do |row|
+      %tr
+        - row.each do |cell|
+          %td= cell 

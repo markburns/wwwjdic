@@ -20,7 +20,7 @@ class LinkableWord
   end
 
   def default_link
-    "<a href='/#{URI.encode @text}'><span#{word_class}>#{unquoted}</span></a>"
+    "<a href='/word-search/#{URI.encode @text}'><span#{word_class}>#{unquoted}</span></a>"
   end
 
   def part_match
@@ -33,7 +33,7 @@ class LinkableWord
 
   def wrap_query_with_highlighted_linkable_word
     span do
-      "<a class='highlight' href='/#{uri_encoded_query}'>#{query_without_quotes}</a>"
+      "<a class='highlight' href='/word-search/#{uri_encoded_query}'>#{query_without_quotes}</a>"
     end
   end
 
@@ -54,7 +54,7 @@ class LinkableWord
   end
 
   def full_text_link
-    "<a class='highlight' href='/#{uri_encoded_query}'>#{@text}</a>"
+    "<a class='highlight' href='/word-search#{uri_encoded_query}'>#{@text}</a>"
   end
 
   def query_without_quotes
