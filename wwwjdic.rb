@@ -1,6 +1,14 @@
 require './lib/setup'
 
 class Wwwjdic < Sinatra::Application
+  def tagger
+    @tagger||= MeCab::Tagger.new
+  end
+
+  get "/parse_sentence/:sentence" do
+    tagger.parse params[:sentence]
+  end
+
   get '/auto-complete' do
     headers 'Content-Type' => "content-type:text/javascript;charset=utf-8"
 

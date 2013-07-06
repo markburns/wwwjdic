@@ -6,6 +6,7 @@ require 'json'
 require 'active_support/core_ext/hash'
 require 'active_support/core_ext/object'
 
+require 'mecab'
 require 'redis'
 require 'redis-namespace'
 require './app/data_access/redis_helpers'
