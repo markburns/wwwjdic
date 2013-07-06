@@ -1,10 +1,13 @@
 source "https://rubygems.org"
+require 'rbconfig'
+HOST_OS = RbConfig::CONFIG['host_os']
 
 gem 'sinatra'
 gem 'rack-conneg'
 
 gem 'thin'
-gem 'shotgun'
+gem 'rerun'
+gem 'rb-fsevent' if HOST_OS =~ /darwin/
 gem 'rake'
 
 gem 'redis'
