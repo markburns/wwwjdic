@@ -7,16 +7,16 @@ gem 'thin'
 gem 'shotgun'
 gem 'rake'
 
-gem 'wirble'
-gem 'awesome_print'
-
 gem 'redis'
 gem 'redis-namespace'
+gem 'mecab'
 
 gem 'haml'
 gem 'activesupport', '~> 3.2'
 
 group :test, :development do
+  gem 'wirble'
+  gem 'awesome_print'
   gem 'debugger'
   gem 'capybara'
   gem 'launchy'
