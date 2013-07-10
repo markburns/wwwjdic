@@ -28,11 +28,11 @@ SETUP
 =============
 Ruby ( >2.0.0 to run the data import, 1.9 to run the server)
 Use either RVM or rbenv:
-[rvm](http://beginrescueend.com/)
-[rbenv](https://github.com/sstephenson/rbenv)
-[mecab](https://github.com/markburns/mecab)
-[Redis](http://redis.io/) can be installed on the mac with home brew.
-[Git](http://git-scm.com/) is a dependency of RVM
+  * [rvm](http://beginrescueend.com/)
+  * [rbenv](https://github.com/sstephenson/rbenv)
+  * [mecab](https://github.com/markburns/mecab)
+  * [Redis](http://redis.io/) can be installed on the mac with home brew.
+  * [Git](http://git-scm.com/) is a dependency of RVM
 
 ```bash
 git clone https://markburns@github.com/markburns/wwwjdic.git
