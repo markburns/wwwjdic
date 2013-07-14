@@ -1,29 +1,29 @@
 module AutoComplete
   extend RedisHelpers
 
-  def self.find(prefix,count=15)
+  def self.find(query,count=15)
     results = []
     range_length = count
-    start = redis.zrank('auto_complete',prefix)
+    start = redis.zrank('auto_complete',query)
 
     return [] if !start
 
     while results.length != count
-      range = redis.zrange('auto_complete', start, start + range_length - 1)
+      matches = redis.zrange('auto_complete', start, start + range_length - 1)
 
       start += range_length
 
-      break if !range or range.length == 0
+      break if !matches or matches.length == 0
 
-      range.each do |entry|
-        min_length = [entry.length, prefix.length].min
+      matches.each do |match|
+        min_length = [match.length, query.length].min
 
-        if entry[0...min_length] != prefix[0...min_length]
+        if match[0...min_length] != query[0...min_length]
           count = results.count
           break
         end
-        if entry[-1] == "*" and results.length != count
-          results << entry[0...-1]
+        if match[-1] == "*" and results.length != count
+          results << match[0...-1]
         end
       end
     end
